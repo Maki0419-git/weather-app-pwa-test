@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/weather-app-pwa-test/static/css/main.f838df96.chunk.css",
+    "main.css": "/weather-app-pwa-test/static/css/main.d8b995d2.chunk.css",
     "main.js": "/weather-app-pwa-test/static/js/main.ff3ba43e.chunk.js",
     "main.js.map": "/weather-app-pwa-test/static/js/main.ff3ba43e.chunk.js.map",
     "runtime-main.js": "/weather-app-pwa-test/static/js/runtime-main.9d004edb.js",
@@ -14,7 +14,7 @@
     "service-worker.js": "/weather-app-pwa-test/service-worker.js",
     "service-worker.js.map": "/weather-app-pwa-test/service-worker.js.map",
     "static/css/2.4be38407.chunk.css.map": "/weather-app-pwa-test/static/css/2.4be38407.chunk.css.map",
-    "static/css/main.f838df96.chunk.css.map": "/weather-app-pwa-test/static/css/main.f838df96.chunk.css.map",
+    "static/css/main.d8b995d2.chunk.css.map": "/weather-app-pwa-test/static/css/main.d8b995d2.chunk.css.map",
     "static/js/2.0fffaea4.chunk.js.LICENSE.txt": "/weather-app-pwa-test/static/js/2.0fffaea4.chunk.js.LICENSE.txt",
     "static/media/clock.359387cf.svg": "/weather-app-pwa-test/static/media/clock.359387cf.svg",
     "static/media/cloudy3.b7e18a25.svg": "/weather-app-pwa-test/static/media/cloudy3.b7e18a25.svg",
@@ -39,7 +39,7 @@
     "static/js/runtime-main.9d004edb.js",
     "static/css/2.4be38407.chunk.css",
     "static/js/2.0fffaea4.chunk.js",
-    "static/css/main.f838df96.chunk.css",
+    "static/css/main.d8b995d2.chunk.css",
     "static/js/main.ff3ba43e.chunk.js"
   ]
 }
