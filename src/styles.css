@@ -1,0 +1,115 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.box {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #eee;
+}
+
+.card-img {
+  filter: 100%;
+  -webkit-filter: brightness(90%);
+}
+
+.divCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  /* border: solid 1px; */
+}
+
+.weatherIcon {
+  max-height: 65px;
+  max-width: 65px;
+}
+
+.weatherIcon-small {
+  max-height: 30px;
+  max-width: 30px;
+  margin-top: 5px;
+  margin-right: 3px;
+}
+.weatherIcon-setting {
+  max-height: 20px;
+  max-width: 16px;
+  margin-top: 5px;
+  margin-right: 3px;
+}
+
+.color path {
+  fill: white;
+}
+.weatherIcon-medium {
+  max-height: 60px;
+  max-width: 60px;
+  margin-top: 5px;
+}
+
+.cardText {
+  padding-top: 5px;
+  color: white;
+  font-size: 42px;
+  font-weight: normal;
+}
+
+.c {
+  font-size: 18px;
+  position: relative;
+  bottom: 15px;
+}
+
+.cardText-medium {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cardText-small {
+  padding-top: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.vl {
+  border-left: 1px solid snow;
+  height: 40px;
+}
+
+.footerIcon {
+  max-height: 20px;
+  max-width: 20px;
+  margin-top: 4px;
+  position: relative;
+  bottom: 3px;
+}
+
+.LoadingIcon {
+  max-height: 15px;
+  max-width: 14px;
+  margin-top: 4px;
+
+  position: relative;
+  left: 8px;
+  bottom: 3px;
+}
+
+.rotate {
+  animation: rotate infinite 4s linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
