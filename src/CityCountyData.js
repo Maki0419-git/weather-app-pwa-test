@@ -50,6 +50,10 @@ export const availableLocations = [
     locationName: "阿里山"
   },
   {
+    cityName: "南投縣",
+    locationName: "日月潭"
+  },
+  {
     cityName: "臺南市",
     locationName: "南區中心"
   },

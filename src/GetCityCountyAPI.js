@@ -33,6 +33,8 @@ function changeState(response) {
 
         case "administrative_area_level_1":
           return response.results[0].address_components[i].long_name;
+        case "administrative_area_level_2":
+          return response.results[0].address_components[i].long_name;
 
 
       }
@@ -52,6 +54,7 @@ export default function useGetLocation(action) {
       const [lat, lon] = await getPreciseLocation();
       const response = await Geocode.fromLatLng(lat, lon);
       const state = changeState(response);
+      console.log(state)
 
       const findLocation = availableLocations.find(
         (i) => i.cityName === state
