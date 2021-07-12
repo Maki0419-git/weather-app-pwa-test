@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-
+import dayjs from 'dayjs';
 function changeTime(now, day, data) {
-  return now.getTime() > new Date(day + " " + data["日出時刻"]).getTime() &&
-    now.getTime() < new Date(day + " " + data["日沒時刻"]).getTime()
+  return now.unix() > dayjs(day + " " + data["日出時刻"]).unix() &&
+    now.unix() < dayjs(day + " " + data["日沒時刻"]).unix()
     ? "day"
     : "night";
 }
@@ -31,7 +31,7 @@ export default function useWeatherAPI(cityData) {
     let weatehrElements = {};
     const response_current = await fetch(
       "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-B9DAF255-4D29-4E4B-BAE8-D4C8F3382B43&locationName=" +
-        cityData.locationName
+      cityData.locationName
     );
     const data_current = await response_current.json();
     const locationData_current = data_current.records.location[0];
@@ -48,7 +48,7 @@ export default function useWeatherAPI(cityData) {
 
     const response_future = await fetch(
       "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-B9DAF255-4D29-4E4B-BAE8-D4C8F3382B43&locationName=" +
-        cityData.cityName
+      cityData.cityName
     );
     const data_future = await response_future.json();
     // console.log(data_future);
@@ -63,7 +63,7 @@ export default function useWeatherAPI(cityData) {
       {}
     );
     // console.log(Elements_future);
-    const now = new Date();
+    const now = dayjs();
     const day = Intl.DateTimeFormat("zh-TW", {
       year: "numeric",
       month: "2-digit",
@@ -73,9 +73,9 @@ export default function useWeatherAPI(cityData) {
       .replace(/\//g, "-");
     const response_DayorNight = await fetch(
       "https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001?Authorization=CWB-B9DAF255-4D29-4E4B-BAE8-D4C8F3382B43&locationName=" +
-        cityData.cityName +
-        "&dataTime=" +
-        day
+      cityData.cityName +
+      "&dataTime=" +
+      day
     );
 
     const data_DayorNight = await response_DayorNight.json();

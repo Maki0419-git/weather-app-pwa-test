@@ -9,6 +9,7 @@ import { ReactComponent as Loading } from "./images/reload.svg";
 import { ReactComponent as Humidity } from "./images/humidity.svg";
 import { ReactComponent as Setting } from "./images/setting-lines.svg";
 import WeatherIcon from "./WeatherIcon";
+import dayjs from 'dayjs';
 
 function WeatherCard({ weatherElement, fetchWeather, modalShow }) {
   return (
@@ -105,7 +106,7 @@ function WeatherCard({ weatherElement, fetchWeather, modalShow }) {
         {new Intl.DateTimeFormat("zh-TW", {
           hour: "numeric",
           minute: "numeric"
-        }).format(new Date(weatherElement.observationTime))}
+        }).format(dayjs(weatherElement.observationTime))}
         <Loading
           className={
             weatherElement.ifLoading ? "LoadingIcon rotate" : "LoadingIcon"
