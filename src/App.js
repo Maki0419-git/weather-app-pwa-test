@@ -1,9 +1,9 @@
 import "./styles.css";
-import { Container } from "react-bootstrap";
+import { Container, Button, Modal, Alert, Col } from "react-bootstrap";
 import WeatherCard from "./WeatherCard";
 import useWeatherAPI from "./WeatherAPI";
 import useGetCityCountyAPI from "./GetCityCountyAPI";
-import Modal from "./ChooseLocation";
+import ChooseLocation from "./ChooseLocation";
 import { useState } from "react";
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -14,8 +14,9 @@ document.head.appendChild(styleLink);
 export default function App() {
   const [cityData, setCityData] = useGetCityCountyAPI("getLocate");
   console.log(cityData);
-  const [weatherElement, fetchWeather] = useWeatherAPI(cityData);
+  const [weatherElement, failed, fetchWeather] = useWeatherAPI(cityData);
   const [show, setShow] = useState(false);
+
   // console.log("cityData:");
   // console.log(cityData);
   // console.log("weatherElement");
@@ -36,14 +37,17 @@ export default function App() {
   }
   return (
     <Container className="box">
-      {console.log()}
+
       <WeatherCard
         weatherElement={weatherElement}
         fetchWeather={fetchWeather}
         modalShow={modalShow}
+        failed={failed}
       />
+
       {/* {console.log("render:" + weatherElement.ifLoading)} */}
-      <Modal locateupdate={locateupdate} show={show} modalClose={modalClose} />
+      <ChooseLocation locateupdate={locateupdate} show={show} modalClose={modalClose} />
+
     </Container>
   );
 }
