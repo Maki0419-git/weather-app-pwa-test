@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Container, Button, Modal, Alert, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import WeatherCard from "./WeatherCard";
 import useWeatherAPI from "./WeatherAPI";
 
