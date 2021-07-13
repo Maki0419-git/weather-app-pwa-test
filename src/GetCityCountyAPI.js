@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 import { availableLocations } from "./CityCountyData";
 import Geocode from "react-geocode";
 
