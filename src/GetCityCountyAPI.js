@@ -2,7 +2,8 @@
 import { availableLocations } from "./CityCountyData";
 import Geocode from "react-geocode";
 
-Geocode.setApiKey("AIzaSyBU4r6XCZwygcRu8JPDcnpqNLiE1NIhlds");
+
+Geocode.setApiKey(process.env.React_APP_Google);
 Geocode.setLanguage("zh-TW");
 
 // set response region. Its optional.
