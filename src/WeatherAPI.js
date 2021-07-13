@@ -8,6 +8,8 @@ function changeTime(now, day, data) {
     : "night";
 }
 
+const weather_API = process.env.React_APP_Weather;
+
 export default function useWeatherAPI(action) {
   // const [loading, setLoading] = useState(true);
 
@@ -35,7 +37,7 @@ export default function useWeatherAPI(action) {
     let weatehrElements = {};
     try {
       const response_current = await fetch(
-        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-B9DAF255-4D29-4E4B-BAE8-D4C8F3382B43&locationName=" +
+        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=" + weather_API + "&locationName=" +
         cityData.locationName
       );
       const data_current = await response_current.json();
@@ -61,7 +63,7 @@ export default function useWeatherAPI(action) {
 
     try {
       const response_future = await fetch(
-        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-B9DAF255-4D29-4E4B-BAE8-D4C8F3382B43&locationName=" +
+        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + weather_API + "&locationName=" +
         cityData.cityName
       );
       const data_future = await response_future.json();
@@ -95,7 +97,7 @@ export default function useWeatherAPI(action) {
       .replace(/\//g, "-");
     try {
       const response_DayorNight = await fetch(
-        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001?Authorization=CWB-B9DAF255-4D29-4E4B-BAE8-D4C8F3382B43&locationName=" +
+        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001?Authorization=" + weather_API + "&locationName=" +
         cityData.cityName +
         "&dataTime=" +
         day
