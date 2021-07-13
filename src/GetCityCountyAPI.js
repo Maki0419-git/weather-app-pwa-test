@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { availableLocations } from "./CityCountyData";
 import Geocode from "react-geocode";
+
 Geocode.setApiKey("AIzaSyBU4r6XCZwygcRu8JPDcnpqNLiE1NIhlds");
 Geocode.setLanguage("zh-TW");
 
@@ -42,41 +43,29 @@ function changeState(response) {
   }
 }
 
-export default function useGetLocation(action) {
-  const [city, setCity] = useState({
-    cityName: "臺北市",
-    locationName: "臺北"
-  });
 
-  async function setCityData(action) {
-
-    if (action === "getLocate") {
-      const [lat, lon] = await getPreciseLocation();
-      const response = await Geocode.fromLatLng(lat, lon);
-      const state = changeState(response);
-      console.log(state)
-
-      const findLocation = availableLocations.find(
-        (i) => i.cityName === state
-      );
+async function setCityData() {
 
 
-      console.log("getLocation Completed");
-      setCity(findLocation);
+  const [lat, lon] = await getPreciseLocation();
+  const response = await Geocode.fromLatLng(lat, lon);
+  const state = changeState(response);
+  console.log(state)
+
+  const findLocation = availableLocations.find(
+    (i) => i.cityName === state
+  );
 
 
-    }
+  console.log("getLocation Completed");
 
+  return findLocation
 
-
-    else {
-      setCity(action);
-    }
-  }
-
-  useEffect(() => {
-    console.log("getLocation Called");
-    setCityData(action);
-  }, [action]);
-  return [city, setCityData];
 }
+
+
+export default setCityData;
+
+
+
+

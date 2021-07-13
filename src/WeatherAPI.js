@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import setCityData from "./GetCityCountyAPI";
 import dayjs from 'dayjs';
 function changeTime(now, day, data) {
   return now.unix() > dayjs(day + " " + data["日出時刻"]).unix() &&
@@ -7,17 +8,18 @@ function changeTime(now, day, data) {
     : "night";
 }
 
-export default function useWeatherAPI(cityData) {
+export default function useWeatherAPI(action) {
   // const [loading, setLoading] = useState(true);
+
   const [failed, setFailed] = useState(false);
   // console.log(cityData);
   const [weatherElement, setWeatherElement] = useState({
     observationTime: "Sun Jul 11 2021 22:29:01 GMT+0800 (台北標準時間)",
-    locationName: cityData.cityName,
+    locationName: "台北市",
     humid: 0,
     temperature: 0,
     windSpeed: 0,
-    description: "多雲時晴",
+    description_f: "多雲時晴",
     weatherCode: 0,
     rainPossibility: 0,
     comfortability: "",
@@ -26,6 +28,8 @@ export default function useWeatherAPI(cityData) {
   });
   const fetchWeather = async () => {
     console.log("weatherAPI called:");
+    const cityData = action === "getLocate"
+      ? await setCityData() : action;
     setWeatherElement((prev) => ({ ...prev, ifLoading: true }));
     // setLoading(true);
     let weatehrElements = {};
@@ -130,7 +134,7 @@ export default function useWeatherAPI(cityData) {
 
   useEffect(() => {
     fetchWeather();
-  }, [cityData]);
+  }, [action]);
 
   return [weatherElement, failed, fetchWeather];
 }

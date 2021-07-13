@@ -2,7 +2,7 @@ import "./styles.css";
 import { Container, Button, Modal, Alert, Col } from "react-bootstrap";
 import WeatherCard from "./WeatherCard";
 import useWeatherAPI from "./WeatherAPI";
-import useGetCityCountyAPI from "./GetCityCountyAPI";
+
 import ChooseLocation from "./ChooseLocation";
 import { useState } from "react";
 const styleLink = document.createElement("link");
@@ -12,9 +12,10 @@ styleLink.href =
 document.head.appendChild(styleLink);
 
 export default function App() {
-  const [cityData, setCityData] = useGetCityCountyAPI("getLocate");
-  console.log(cityData);
-  const [weatherElement, failed, fetchWeather] = useWeatherAPI(cityData);
+
+  const [selectedLocate, setSelectedLocate] = useState("getLocate");
+
+  const [weatherElement, failed, fetchWeather] = useWeatherAPI(selectedLocate);
   const [show, setShow] = useState(false);
 
   // console.log("cityData:");
@@ -32,7 +33,7 @@ export default function App() {
 
   function locateupdate(data) {
     // useGetCityCountyAPI(data);
-    setCityData(data);
+    setSelectedLocate(data);
     setShow(false);
   }
   return (
