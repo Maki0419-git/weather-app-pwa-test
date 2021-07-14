@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/weather-app-pwa-test/static/css/main.d8b995d2.chunk.css",
-    "main.js": "/weather-app-pwa-test/static/js/main.32b81f3a.chunk.js",
-    "main.js.map": "/weather-app-pwa-test/static/js/main.32b81f3a.chunk.js.map",
+    "main.js": "/weather-app-pwa-test/static/js/main.da96f2da.chunk.js",
+    "main.js.map": "/weather-app-pwa-test/static/js/main.da96f2da.chunk.js.map",
     "runtime-main.js": "/weather-app-pwa-test/static/js/runtime-main.c95a4399.js",
     "runtime-main.js.map": "/weather-app-pwa-test/static/js/runtime-main.c95a4399.js.map",
     "static/css/2.4be38407.chunk.css": "/weather-app-pwa-test/static/css/2.4be38407.chunk.css",
@@ -30,9 +30,9 @@
     "static/media/reload.02aaab9b.svg": "/weather-app-pwa-test/static/media/reload.02aaab9b.svg",
     "static/media/setting-lines.dfb6e5c7.svg": "/weather-app-pwa-test/static/media/setting-lines.dfb6e5c7.svg",
     "static/media/snowing.0a8de166.svg": "/weather-app-pwa-test/static/media/snowing.0a8de166.svg",
+    "static/media/storm.b1993377.svg": "/weather-app-pwa-test/static/media/storm.b1993377.svg",
     "static/media/sun.aecbfd5e.svg": "/weather-app-pwa-test/static/media/sun.aecbfd5e.svg",
     "static/media/thermometer.26bec6cd.svg": "/weather-app-pwa-test/static/media/thermometer.26bec6cd.svg",
-    "static/media/thunder.62d76fdb.svg": "/weather-app-pwa-test/static/media/thunder.62d76fdb.svg",
     "static/media/wind.c9a5073c.svg": "/weather-app-pwa-test/static/media/wind.c9a5073c.svg"
   },
   "entrypoints": [
@@ -40,6 +40,6 @@
     "static/css/2.4be38407.chunk.css",
     "static/js/2.e1d0bddd.chunk.js",
     "static/css/main.d8b995d2.chunk.css",
-    "static/js/main.32b81f3a.chunk.js"
+    "static/js/main.da96f2da.chunk.js"
   ]
 }
