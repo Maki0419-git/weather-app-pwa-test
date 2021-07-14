@@ -10,10 +10,10 @@ function changeTime(now, day, data) {
 
 const weather_API = process.env.React_APP_Weather;
 
-export default function useWeatherAPI(action) {
+export default function useWeatherAPI(selectedLocate, failed, setFailed) {
   // const [loading, setLoading] = useState(true);
 
-  const [failed, setFailed] = useState(false);
+
   // console.log(cityData);
   const [weatherElement, setWeatherElement] = useState({
     observationTime: "Sun Jul 11 2021 22:29:01 GMT+0800 (台北標準時間)",
@@ -30,15 +30,15 @@ export default function useWeatherAPI(action) {
   });
   const fetchWeather = async () => {
     console.log("weatherAPI called:");
-    const cityData = action === "getLocate"
-      ? await setCityData() : action;
+
+    console.log("fetchweather" + failed);
     setWeatherElement((prev) => ({ ...prev, ifLoading: true }));
     // setLoading(true);
     let weatehrElements = {};
     try {
       const response_current = await fetch(
         "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=" + weather_API + "&locationName=" +
-        cityData.locationName
+        selectedLocate.locationName
       );
       const data_current = await response_current.json();
       const locationData_current = data_current.records.location[0];
@@ -54,17 +54,17 @@ export default function useWeatherAPI(action) {
       );
       weatehrElements = {
         observationTime: locationData_current.time.obsTime,
-        locationName: cityData.cityName,
+        locationName: selectedLocate.cityName,
         temperature: Elements_current.TEMP,
         windSpeed: Elements_current.WDSD,
         humid: Elements_current.HUMD,
       };
-    } catch (e) { setFailed(true) }
+    } catch (e) { if (failed === false) { setFailed({ alert: true, message: "中央氣象局沒有回應" }) } }
 
     try {
       const response_future = await fetch(
         "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + weather_API + "&locationName=" +
-        cityData.cityName
+        selectedLocate.cityName
       );
       const data_future = await response_future.json();
       // console.log(data_future);
@@ -85,7 +85,7 @@ export default function useWeatherAPI(action) {
         rainPossibility: Elements_future.PoP.parameterName,
         comfortability: Elements_future.CI.parameterName
       }
-    } catch (e) { setFailed(true) }
+    } catch (e) { if (failed === false) { setFailed({ alert: true, message: "中央氣象局沒有回應" }) } }
     // console.log(Elements_future);
     const now = dayjs();
     const day = Intl.DateTimeFormat("zh-TW", {
@@ -98,7 +98,7 @@ export default function useWeatherAPI(action) {
     try {
       const response_DayorNight = await fetch(
         "https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001?Authorization=" + weather_API + "&locationName=" +
-        cityData.cityName +
+        selectedLocate.cityName +
         "&dataTime=" +
         day
       );
@@ -118,7 +118,7 @@ export default function useWeatherAPI(action) {
         {}
       );
       weatehrElements = { ...weatehrElements, moment: changeTime(now, day, DayorNightElements) }
-    } catch (e) { setFailed(true) }
+    } catch (e) { if (failed === false) { setFailed({ alert: true, message: "中央氣象局沒有回應" }) } }
     // console.log(DayorNightElements);
 
 
@@ -130,13 +130,19 @@ export default function useWeatherAPI(action) {
 
     }));
 
+    // if (weatehrElements.length !== 0) {
+    //   setFailed(false);
+    // }
+
     console.log(weatehrElements);
     console.log("fetch weather completed!");
   };
-
+  // eslint-disable-next-line
   useEffect(() => {
-    fetchWeather();
-  }, [action]);
 
-  return [weatherElement, failed, fetchWeather];
+    fetchWeather();
+
+  }, [selectedLocate]);
+
+  return [weatherElement, fetchWeather];
 }

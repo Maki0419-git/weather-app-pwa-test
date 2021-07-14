@@ -27,7 +27,7 @@ const customStyles = {
   }
 };
 
-function MyVerticallyCenteredModal({ locateupdate, show, modalClose, locationData }) {
+function MyVerticallyCenteredModal({ locateupdate, show, modalClose, getLocate }) {
   const [selected, setSelected] = useState({});
   const handleChange = (newValue) => {
     console.group("Value Changed");
@@ -62,7 +62,7 @@ function MyVerticallyCenteredModal({ locateupdate, show, modalClose, locationDat
 
         <Button variant="outline-primary"
           onClick={() => {
-            locateupdate("getLocate");
+            getLocate();
           }}
         >依所在位置查詢</Button>{' '}
         <Button
