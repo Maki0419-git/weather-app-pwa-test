@@ -1,6 +1,7 @@
 
 import { availableLocations } from "./CityCountyData";
 import Geocode from "react-geocode";
+import { useEffect, useState } from "react";
 
 
 Geocode.setApiKey(process.env.React_APP_Google);
@@ -21,11 +22,10 @@ Geocode.setLocationType("ROOFTOP");
 // Enable or disable logs. Its optional.
 Geocode.enableDebug();
 function getPreciseLocation() {
-  return new Promise(function (resolve) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      resolve([position.coords.latitude, position.coords.longitude]);
-    });
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
+  //https://gist.github.com/varmais/74586ec1854fe288d393 getPreciseLocation catch error
 }
 
 function changeState(response) {
@@ -44,28 +44,48 @@ function changeState(response) {
   }
 }
 
+function useSetCityData(failed, setFailed) {
+  const [findLocation, setFindLocation] = useState({
+    cityName: "臺北市",
+    locationName: "臺北"
+  })
+  let [lat, lon] = [121, 25];
 
-async function setCityData() {
+  async function getLocate() {
+    try {
+      console.log(1);
+      const position = await getPreciseLocation();
+      [lat, lon] = [position.coords.latitude, position.coords.longitude]
+    } catch (e) { setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" }) }
+
+    try {
+      const response = await Geocode.fromLatLng(lat, lon);
+      const state = changeState(response);
+
+      console.log(state)
+
+      const Location = availableLocations.find(
+        (i) => i.cityName === state
+      );
+      setFindLocation(Location)
+    } catch (e) {
+      if (failed.alert === false) {
+        setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" })
+      }
+    }
+
+  }
 
 
-  const [lat, lon] = await getPreciseLocation();
-  const response = await Geocode.fromLatLng(lat, lon);
-  const state = changeState(response);
-  console.log(state)
-
-  const findLocation = availableLocations.find(
-    (i) => i.cityName === state
-  );
-
-
+  useEffect(() => { getLocate() }, [])
   console.log("getLocation Completed");
 
-  return findLocation
+  return [findLocation, getLocate];
 
 }
 
 
-export default setCityData;
+export default useSetCityData;
 
 
 

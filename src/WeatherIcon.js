@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as DayThunderstorm } from "./images/thunder.svg";
+import { ReactComponent as DayThunderstorm } from "./images/storm.svg";
 import { ReactComponent as DayClear } from "./images/sun.svg";
 import { ReactComponent as DayCloudyFog } from "./images/haze.svg";
 import { ReactComponent as DayCloudy } from "./images/cloudy3.svg";

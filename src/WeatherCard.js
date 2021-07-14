@@ -11,11 +11,12 @@ import { ReactComponent as Setting } from "./images/setting-lines.svg";
 import WeatherIcon from "./WeatherIcon";
 import dayjs from 'dayjs';
 
-function WeatherCard({ weatherElement, fetchWeather, modalShow, failed }) {
+function WeatherCard({ weatherElement, fetchWeather, modalShow, failed, getLocate }) {
+  console.log(failed);
   return (
     <div>
-      <Alert variant="danger" show={failed}>
-        中央氣象局沒有回應
+      <Alert variant="danger" show={failed.show}>
+        {failed.message}
       </Alert>
       <Card style={{ width: "14rem" }}>
         {/* {console.log("render")} */}
@@ -124,13 +125,6 @@ function WeatherCard({ weatherElement, fetchWeather, modalShow, failed }) {
   );
 }
 
-function areEqual(prevProps, nextProps) {
-  if (prevProps.weatherElement !== nextProps.weatherElement) {
-    console.log(false);
-    return false;
-  }
-  console.log(true);
-  return true;
-}
 
-export default React.memo(WeatherCard, areEqual);
+
+export default WeatherCard;
