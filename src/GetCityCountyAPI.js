@@ -53,9 +53,10 @@ function useSetCityData(failed, setFailed) {
 
   async function getLocate() {
     try {
-      console.log(1);
+
       const position = await getPreciseLocation();
       [lat, lon] = [position.coords.latitude, position.coords.longitude]
+      console.log(lat, lon)
     } catch (e) { setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" }) }
 
     try {
@@ -80,7 +81,7 @@ function useSetCityData(failed, setFailed) {
   useEffect(() => { getLocate() }, [])
   console.log("getLocation Completed");
 
-  return [findLocation, getLocate];
+  return [findLocation];
 
 }
 

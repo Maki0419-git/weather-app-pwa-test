@@ -16,7 +16,7 @@ export default function App() {
     show: false,
     message: ""
   })
-  const [LocateData, getLocategoogle] = useSetCityData(failed, setFailed);
+  const [LocateData] = useSetCityData(failed, setFailed);
   const [selectedLocate, setSelectedLocate] = useState(LocateData);
   const [weatherElement, fetchWeather] = useWeatherAPI(selectedLocate, failed, setFailed);
   const [show, setShow] = useState(false);
