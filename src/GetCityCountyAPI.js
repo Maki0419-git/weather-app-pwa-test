@@ -1,5 +1,6 @@
 import Geocode from "react-geocode";
 import { useEffect, useState } from "react";
+import { availableLocations } from "./CityCountyData";
 
 Geocode.setApiKey(process.env.React_APP_Google);
 Geocode.setLanguage("zh-TW");
@@ -61,19 +62,19 @@ function useSetCityData(failed, setFailed) {
       setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" });
     }
 
-    // try {
-    //   const response = await Geocode.fromLatLng(lat, lon);
-    //   const state = changeState(response);
+    try {
+      const response = await Geocode.fromLatLng(lat, lon);
+      const state = changeState(response);
 
-    //   console.log(state);
+      console.log(state);
 
-    //   const Location = availableLocations.find((i) => i.cityName === state);
-    //   setFindLocation(Location);
-    // } catch (e) {
-    //   if (failed.alert === false) {
-    //     setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" });
-    //   }
-    // }
+      const Location = availableLocations.find((i) => i.cityName === state);
+      setFindLocation(Location);
+    } catch (e) {
+      if (failed.alert === false) {
+        setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" });
+      }
+    }
   }
 
   useEffect(() => {
