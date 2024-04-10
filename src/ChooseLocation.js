@@ -4,35 +4,40 @@ import Select from "react-select";
 import { availableLocations } from "./CityCountyData";
 
 const locations = availableLocations.reduce((needElements, item) => {
-  needElements.push({ value: item.locationName, label: item.cityName });
+  needElements.push({ value: item.stationName, label: item.cityName });
   return needElements;
 }, []);
 
 const customStyles = {
   container: (provided) => ({
-    width: "100%"
+    width: "100%",
   }),
   menu: () => ({
-    width: "100%"
+    width: "100%",
   }),
   menuList: () => ({
     // none of react-select's styles are passed to <Control />
-    width: "100%"
+    width: "100%",
   }),
   singleValue: (provided, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
     const transition = "opacity 300ms";
 
     return { ...provided, opacity, transition };
-  }
+  },
 };
 
-function MyVerticallyCenteredModal({ locateupdate, show, modalClose, getLocate }) {
+function MyVerticallyCenteredModal({
+  locateupdate,
+  show,
+  modalClose,
+  getLocate,
+}) {
   const [selected, setSelected] = useState({});
   const handleChange = (newValue) => {
     console.group("Value Changed");
     console.log(newValue);
-    setSelected({ cityName: newValue.label, locationName: newValue.value });
+    setSelected({ cityName: newValue.label, stationName: newValue.value });
     console.groupEnd();
   };
   return (
@@ -55,16 +60,18 @@ function MyVerticallyCenteredModal({ locateupdate, show, modalClose, getLocate }
           isClearable
           options={locations}
           onChange={handleChange}
-        // onInputChange={handleInputChange}
+          // onInputChange={handleInputChange}
         />
       </Modal.Body>
       <Modal.Footer>
-
-        <Button variant="outline-primary"
+        <Button
+          variant="outline-primary"
           onClick={() => {
             getLocate();
           }}
-        >依所在位置查詢</Button>{' '}
+        >
+          依所在位置查詢
+        </Button>{" "}
         <Button
           onClick={() => {
             locateupdate(selected);

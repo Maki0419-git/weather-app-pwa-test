@@ -1,8 +1,5 @@
-
-import { availableLocations } from "./CityCountyData";
 import Geocode from "react-geocode";
 import { useEffect, useState } from "react";
-
 
 Geocode.setApiKey(process.env.React_APP_Google);
 Geocode.setLanguage("zh-TW");
@@ -30,15 +27,16 @@ function getPreciseLocation() {
 
 function changeState(response) {
   for (let i = 0; i < response.results[0].address_components.length; i++) {
-    for (let j = 0; j < response.results[0].address_components[i].types.length; j++) {
+    for (
+      let j = 0;
+      j < response.results[0].address_components[i].types.length;
+      j++
+    ) {
       switch (response.results[0].address_components[i].types[j]) {
-
         case "administrative_area_level_1":
           return response.results[0].address_components[i].long_name;
         case "administrative_area_level_2":
           return response.results[0].address_components[i].long_name;
-
-
       }
     }
   }
@@ -47,47 +45,43 @@ function changeState(response) {
 function useSetCityData(failed, setFailed) {
   const [findLocation, setFindLocation] = useState({
     cityName: "臺北市",
-    locationName: "臺北"
-  })
+    locationName: "臺北",
+  });
   let [lat, lon] = [121, 25];
 
   async function getLocate() {
     try {
-
       const position = await getPreciseLocation();
-      [lat, lon] = [position.coords.latitude, position.coords.longitude]
-      console.log(lat, lon)
-    } catch (e) { setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" }) }
-
-    try {
-      const response = await Geocode.fromLatLng(lat, lon);
-      const state = changeState(response);
-
-      console.log(state)
-
-      const Location = availableLocations.find(
-        (i) => i.cityName === state
-      );
-      setFindLocation(Location)
+      console.log("getPreciseLocation");
+      console.log({ position });
+      [lat, lon] = [position.coords.latitude, position.coords.longitude];
+      console.log({ lat, lon });
     } catch (e) {
-      if (failed.alert === false) {
-        setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" })
-      }
+      console.log("getPreciseLocation", e);
+      setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" });
     }
 
+    // try {
+    //   const response = await Geocode.fromLatLng(lat, lon);
+    //   const state = changeState(response);
+
+    //   console.log(state);
+
+    //   const Location = availableLocations.find((i) => i.cityName === state);
+    //   setFindLocation(Location);
+    // } catch (e) {
+    //   if (failed.alert === false) {
+    //     setFailed({ alert: true, message: "請檢查網路連線及是否開啟定位服務" });
+    //   }
+    // }
   }
 
-
-  useEffect(() => { getLocate() }, [])
+  useEffect(() => {
+    getLocate();
+  }, []);
   console.log("getLocation Completed");
 
   return [findLocation];
-
 }
 
-
 export default useSetCityData;
-
-
-
-

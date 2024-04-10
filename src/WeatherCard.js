@@ -9,9 +9,15 @@ import { ReactComponent as Loading } from "./images/reload.svg";
 import { ReactComponent as Humidity } from "./images/humidity.svg";
 import { ReactComponent as Setting } from "./images/setting-lines.svg";
 import WeatherIcon from "./WeatherIcon";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
-function WeatherCard({ weatherElement, fetchWeather, modalShow, failed, getLocate }) {
+function WeatherCard({
+  weatherElement,
+  fetchWeather,
+  modalShow,
+  failed,
+  getLocate,
+}) {
   console.log(failed);
   return (
     <div>
@@ -40,7 +46,7 @@ function WeatherCard({ weatherElement, fetchWeather, modalShow, failed, getLocat
                     color={weatherElement.moment === "day" ? "teal" : "blue"}
                     ribbon
                   >
-                    {weatherElement.locationName}
+                    {weatherElement.cityName}
                   </Label>
                 </Col>
                 <Col xs={7} />
@@ -110,7 +116,7 @@ function WeatherCard({ weatherElement, fetchWeather, modalShow, failed, getLocat
           <Clock className="footerIcon" /> 觀測時間:{" "}
           {new Intl.DateTimeFormat("zh-TW", {
             hour: "numeric",
-            minute: "numeric"
+            minute: "numeric",
           }).format(dayjs(weatherElement.observationTime))}
           <Loading
             className={
@@ -124,7 +130,5 @@ function WeatherCard({ weatherElement, fetchWeather, modalShow, failed, getLocat
     </div>
   );
 }
-
-
 
 export default WeatherCard;
