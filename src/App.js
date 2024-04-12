@@ -1,10 +1,11 @@
 import "./styles.css";
 import { Container } from "react-bootstrap";
 import WeatherCard from "./WeatherCard";
-import useWeatherAPI from "./WeatherAPI";
-import useSetCityData from "./GetCityCountyAPI";
+import useWeatherAPI from "./hooks/useWeatherAPI";
 import ChooseLocation from "./ChooseLocation";
 import { useEffect, useState } from "react";
+import useGetCurrentCoordinate from "./hooks/useGetCurrentCoordinate";
+import useGetCurrentLocationData from "./hooks/useGetCurrentLocationData";
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href =
@@ -14,21 +15,24 @@ document.head.appendChild(styleLink);
 export default function App() {
   const [failed, setFailed] = useState({
     show: false,
-    message: ""
-  })
-  const [LocateData] = useSetCityData(failed, setFailed);
-  const [selectedLocate, setSelectedLocate] = useState(LocateData);
-  const [weatherElement, fetchWeather] = useWeatherAPI(selectedLocate, failed, setFailed);
+    message: "",
+  });
+  const { currentCoordinate, error: getCurrentPositionError } =
+    useGetCurrentCoordinate();
+  console.log({ currentCoordinate, getCurrentPositionError });
+  const { locationData, error: getCurrentLocationDataError } =
+    useGetCurrentLocationData(currentCoordinate);
+  console.log({ locationData, getCurrentLocationDataError });
+  const [selectedLocate, setSelectedLocate] = useState(locationData);
+  const [weatherElement, fetchWeather] = useWeatherAPI(
+    selectedLocate,
+    failed,
+    setFailed
+  );
   const [show, setShow] = useState(false);
 
-  useEffect(() => setSelectedLocate(LocateData), [LocateData])
+  useEffect(() => setSelectedLocate(locationData), [locationData]);
 
-  console.log(LocateData);
-  // console.log("cityData:");
-  // console.log(cityData);
-  // console.log("weatherElement");
-  // console.log(weatherElement);
-  // console.log("start:" + weatherElement.ifLoading);
   function modalShow() {
     setShow(true);
   }
@@ -38,7 +42,7 @@ export default function App() {
   }
 
   function getLocate() {
-    setSelectedLocate(LocateData);
+    setSelectedLocate(locationData);
     setShow(false);
   }
   function locateupdate(data) {
@@ -47,20 +51,22 @@ export default function App() {
     setShow(false);
   }
   return (
-    <Container className="box">
+    <>
+      <Container className="box">
+        <WeatherCard
+          weatherElement={weatherElement}
+          fetchWeather={fetchWeather}
+          modalShow={modalShow}
+          failed={failed}
+        />
 
-      <WeatherCard
-        weatherElement={weatherElement}
-        fetchWeather={fetchWeather}
-        modalShow={modalShow}
-        failed={failed}
-
-
-      />
-
-      {/* {console.log("render:" + weatherElement.ifLoading)} */}
-      <ChooseLocation locateupdate={locateupdate} show={show} modalClose={modalClose} getLocate={getLocate} />
-
-    </Container>
+        <ChooseLocation
+          locateupdate={locateupdate}
+          show={show}
+          modalClose={modalClose}
+          getLocate={getLocate}
+        />
+      </Container>
+    </>
   );
 }

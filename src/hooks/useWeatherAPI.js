@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 function changeTime(now, day, data) {
-  return now.unix() > dayjs(day + " " + data["sunRiseTime"]).unix() &&
-    now.unix() < dayjs(day + " " + data["sunSetTime"]).unix()
+  return now.unix() > dayjs(day + " " + data["sunriseTime"]).unix() &&
+    now.unix() < dayjs(day + " " + data["sunsetTime"]).unix()
     ? "day"
     : "night";
 }
 
-const weather_API = process.env.React_APP_Weather;
+const weather_API = process.env.REACT_APP_WEATHER_API_KEY;
 
 export default function useWeatherAPI(selectedLocate, failed, setFailed) {
   // const [loading, setLoading] = useState(true);
@@ -112,14 +112,16 @@ export default function useWeatherAPI(selectedLocate, failed, setFailed) {
       const stationData_DayorNight =
         data_DayorNight.records.locations.location[0].time[0];
       const DayorNightElements = {
-        sunriseTime: stationData_DayorNight["SunriseTime"],
-        sunsetTime: stationData_DayorNight["SunsetTime"],
+        sunriseTime: stationData_DayorNight["SunRiseTime"],
+        sunsetTime: stationData_DayorNight["SunSetTime"],
       };
+      console.log({ DayorNightElements });
       weatherElement_current = {
         ...weatherElement_current,
         moment: changeTime(now, day, DayorNightElements),
       };
     } catch (e) {
+      console.log(e);
       if (failed === false) {
         setFailed({ alert: true, message: "中央氣象局沒有回應" });
       }

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Select from "react-select";
-import { availableLocations } from "./CityCountyData";
+import { availableLocationsData } from "./data/CityCountyData";
 
-const locations = availableLocations.reduce((needElements, item) => {
+const locations = availableLocationsData.reduce((needElements, item) => {
   needElements.push({ value: item.stationName, label: item.cityName });
   return needElements;
 }, []);

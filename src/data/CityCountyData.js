@@ -1,11 +1,11 @@
-export const availableLocations = [
+export const availableLocationsData = [
   {
     cityName: "臺北市",
     stationName: "臺北",
   },
   {
     cityName: "新北市",
-    stationName: "板橋",
+    stationName: "新北",
   },
   {
     cityName: "宜蘭縣",
@@ -36,6 +36,7 @@ export const availableLocations = [
     cityName: "彰化縣",
     stationName: "田中",
   },
+  // no data
   {
     cityName: "雲林縣",
     stationName: "古坑",
@@ -55,7 +56,7 @@ export const availableLocations = [
   },
   {
     cityName: "臺南市",
-    stationName: "南區中心",
+    stationName: "臺南",
   },
   {
     cityName: "高雄市",
