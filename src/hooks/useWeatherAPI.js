@@ -10,9 +10,6 @@ function changeTime(now, day, data) {
 const weather_API = process.env.REACT_APP_WEATHER_API_KEY;
 
 export default function useWeatherAPI(selectedLocate, failed, setFailed) {
-  // const [loading, setLoading] = useState(true);
-
-  // console.log(cityData);
   const [weatherElement, setWeatherElement] = useState({
     observationTime: "Sun Jul 11 2021 22:29:01 GMT+0800 (台北標準時間)",
     cityName: "台北市",
@@ -27,11 +24,8 @@ export default function useWeatherAPI(selectedLocate, failed, setFailed) {
     moment: "day",
   });
 
-  console.log({ weatherElement });
-
   const fetchWeather = async () => {
     setWeatherElement((prev) => ({ ...prev, ifLoading: true }));
-    // setLoading(true);
     let weatherElement_current = {};
     try {
       const response_current = await fetch(
@@ -42,7 +36,6 @@ export default function useWeatherAPI(selectedLocate, failed, setFailed) {
       );
       const data_current = await response_current.json();
       const stationData_current = data_current.records.Station[0];
-      console.log({ stationData_current });
 
       weatherElement_current = {
         observationTime: stationData_current.ObsTime.DateTime,
@@ -88,7 +81,6 @@ export default function useWeatherAPI(selectedLocate, failed, setFailed) {
         setFailed({ alert: true, message: "中央氣象局沒有回應" });
       }
     }
-    // console.log(Elements_future);
     const now = dayjs();
     const day = Intl.DateTimeFormat("zh-TW", {
       year: "numeric",
@@ -108,14 +100,12 @@ export default function useWeatherAPI(selectedLocate, failed, setFailed) {
       );
 
       const data_DayorNight = await response_DayorNight.json();
-      // console.log(data_DayorNight);
       const stationData_DayorNight =
         data_DayorNight.records.locations.location[0].time[0];
       const DayorNightElements = {
         sunriseTime: stationData_DayorNight["SunRiseTime"],
         sunsetTime: stationData_DayorNight["SunSetTime"],
       };
-      console.log({ DayorNightElements });
       weatherElement_current = {
         ...weatherElement_current,
         moment: changeTime(now, day, DayorNightElements),
@@ -126,18 +116,12 @@ export default function useWeatherAPI(selectedLocate, failed, setFailed) {
         setFailed({ alert: true, message: "中央氣象局沒有回應" });
       }
     }
-    // console.log(DayorNightElements);
 
-    // setLoading(false);
     setWeatherElement((prev) => ({
       ...prev,
       ...weatherElement_current,
       ifLoading: false,
     }));
-
-    // if (weatherElement_current.length !== 0) {
-    //   setFailed(false);
-    // }
   };
   // eslint-disable-next-line
   useEffect(() => {

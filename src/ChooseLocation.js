@@ -36,7 +36,6 @@ function MyVerticallyCenteredModal({
   const [selected, setSelected] = useState({});
   const handleChange = (newValue) => {
     console.group("Value Changed");
-    console.log(newValue);
     setSelected({ cityName: newValue.label, stationName: newValue.value });
     console.groupEnd();
   };

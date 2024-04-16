@@ -53,7 +53,6 @@ function useGetCurrentLocationData(currentCoordinate) {
         const { lat, lng } = currentCoordinate;
         const response = await fromLatLng(lat, lng);
         const city = getCity(response);
-        console.log({ city });
 
         const locationData = availableLocationsData.find(
           (i) => i.cityName === city
@@ -72,9 +71,6 @@ function useGetCurrentLocationData(currentCoordinate) {
       getCurrentLocationData();
     }
   }, [currentCoordinate, getCurrentLocationData]);
-  console.log({
-    locationData,
-  });
 
   return { locationData, error };
 }

@@ -22,7 +22,6 @@ export default function useGetCurrentCoordinate() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
-        console.log({ position });
       },
       (error) => {
         let msg = null;
